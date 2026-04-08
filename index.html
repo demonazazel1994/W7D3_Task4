@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unit 7 Listening Task 4 - Ocean Conservation Lecture</title>
+  <style>
+    :root{
+      --bg:#f3f8fc;
+      --card:#ffffff;
+      --text:#17324a;
+      --muted:#61788d;
+      --line:#d8e4ef;
+      --primary:#1f7aa8;
+      --primary-dark:#165f83;
+      --accent:#2aa79b;
+      --success:#15795c;
+      --success-bg:#eaf8f2;
+      --danger:#c63e3e;
+      --danger-bg:#fff2f2;
+      --warn-bg:#fff8e8;
+      --warn:#9a6700;
+      --lock-bg:#f7fafc;
+      --lock-line:#c6d7e3;
+      --shadow:0 12px 30px rgba(27,60,85,.08);
+      --radius:18px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, #dff2ff 0%, transparent 28%),
+        linear-gradient(180deg, #eef8ff 0%, var(--bg) 100%);
+    }
+
+    .container{
+      width:min(1040px, calc(100% - 28px));
+      margin:28px auto 40px;
+    }
+
+    .hero,.status-card,.question-card,.results{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+
+    .hero{
+      padding:28px 24px;
+      margin-bottom:18px;
+    }
+
+    .eyebrow{
+      display:inline-block;
+      font-size:.82rem;
+      font-weight:700;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:var(--primary);
+      margin-bottom:10px;
+    }
+
+    h1{
+      margin:0 0 10px;
+      font-size:clamp(1.8rem, 3vw, 2.45rem);
+      line-height:1.2;
+    }
+
+    .hero p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.65;
+    }
+
+    .status-card{
+      padding:20px 24px;
+      margin-bottom:18px;
+    }
+
+    .status-top{
+      display:flex;
+      gap:12px;
+      justify-content:space-between;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+
+    .progress-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:999px;
+      background:#eef7fb;
+      color:var(--primary-dark);
+      font-weight:700;
+    }
+
+    .status-note{
+      margin:12px 0 0;
+      color:var(--muted);
+      line-height:1.6;
+    }
+
+    .warning-global{
+      margin:14px 0 0;
+      color:var(--danger);
+      font-weight:700;
+    }
+
+    .actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:18px;
+    }
+
+    button{
+      border:none;
+      border-radius:12px;
+      padding:12px 18px;
+      font-size:1rem;
+      font-weight:700;
+      cursor:pointer;
+      transition:transform .15s ease, background .15s ease, opacity .15s ease;
+    }
+
+    button:hover:not(:disabled){transform:translateY(-1px)}
+    button:disabled{opacity:.55; cursor:not-allowed; transform:none}
+
+    .primary-btn{background:var(--primary); color:#fff}
+    .primary-btn:hover:not(:disabled){background:var(--primary-dark)}
+    .secondary-btn{background:#edf4f8; color:var(--text)}
+    .secondary-btn:hover:not(:disabled){background:#dde8f0}
+
+    .quiz-grid{
+      display:grid;
+      gap:18px;
+    }
+
+    .question-card{
+      padding:22px;
+    }
+
+    .question-card.incomplete{
+      border-color:var(--danger);
+      box-shadow:0 0 0 3px rgba(198,62,62,.12);
+    }
+
+    .question-card.correct{border-color:#a7e0cb}
+    .question-card.incorrect{border-color:#f0b3b3}
+
+    .question-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:10px;
+    }
+
+    .question-number{
+      font-weight:700;
+      color:var(--primary);
+    }
+
+    .type-tag{
+      font-size:.82rem;
+      font-weight:700;
+      color:var(--accent);
+      background:#ebfbf8;
+      padding:7px 10px;
+      border-radius:999px;
+    }
+
+    .question-text{
+      margin:0 0 14px;
+      font-size:1.08rem;
+      line-height:1.58;
+    }
+
+    .audio-wrap{
+      margin-bottom:18px;
+      padding:14px;
+      border-radius:14px;
+      background:#f8fbfd;
+      border:1px solid #e6eef5;
+    }
+
+    .audio-label{
+      display:block;
+      margin-bottom:8px;
+      font-weight:700;
+    }
+
+    .audio-note{
+      margin:0 0 10px;
+      color:var(--muted);
+      font-size:.93rem;
+      line-height:1.55;
+    }
+
+    .audio-lock{
+      border:1px dashed var(--lock-line);
+      background:var(--lock-bg);
+      color:var(--muted);
+      border-radius:14px;
+      padding:16px;
+      line-height:1.6;
+      font-weight:700;
+    }
+
+    .audio-lock.hidden{display:none}
+
+    .audio-player{
+      display:none;
+    }
+
+    .audio-player.unlocked{
+      display:block;
+    }
+
+    audio{
+      width:100%;
+      display:block;
+    }
+
+    .audio-ready{
+      margin:10px 0 0;
+      color:var(--muted);
+      font-size:.92rem;
+    }
+
+    .audio-error{
+      margin:10px 0 0;
+      color:var(--danger);
+      font-weight:700;
+      font-size:.92rem;
+    }
+
+    fieldset{
+      margin:0;
+      padding:0;
+      border:none;
+      display:grid;
+      gap:10px;
+    }
+
+    .option{
+      display:flex;
+      align-items:flex-start;
+      gap:12px;
+      padding:14px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:#fff;
+      cursor:pointer;
+      line-height:1.5;
+    }
+
+    .option:hover{
+      border-color:#b7cfdf;
+      background:#fbfdff;
+    }
+
+    .option input{
+      margin-top:3px;
+      accent-color:var(--primary);
+      transform:scale(1.08);
+      flex-shrink:0;
+    }
+
+    .option-letter{
+      font-weight:700;
+      min-width:26px;
+    }
+
+    .option.correct-option{
+      background:var(--success-bg);
+      border-color:#86d2b4;
+    }
+
+    .option.incorrect-option{
+      background:var(--danger-bg);
+      border-color:#e4a1a1;
+    }
+
+    .item-warning{
+      margin:12px 0 0;
+      color:var(--danger);
+      font-weight:700;
+    }
+
+    .feedback{
+      margin-top:14px;
+      padding:14px 16px;
+      border-radius:14px;
+      line-height:1.6;
+      border:1px solid transparent;
+    }
+
+    .feedback.correct{
+      background:var(--success-bg);
+      color:var(--success);
+      border-color:#9fd9c0;
+    }
+
+    .feedback.incorrect{
+      background:var(--danger-bg);
+      color:#7f1d1d;
+      border-color:#efb0b0;
+    }
+
+    .transcript-wrap{
+      margin-top:16px;
+      display:grid;
+      gap:10px;
+    }
+
+    .transcript-toggle{
+      justify-self:start;
+      background:#edf4f8;
+      color:var(--text);
+      padding:10px 14px;
+      border-radius:12px;
+      font-size:.95rem;
+    }
+
+    .transcript-panel{
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:#fbfdff;
+      padding:14px;
+    }
+
+    .transcript-title{
+      margin:0 0 8px;
+      font-weight:700;
+      color:var(--primary-dark);
+    }
+
+    .transcript-text{
+      margin:0;
+      color:var(--text);
+      line-height:1.7;
+      white-space:pre-line;
+    }
+
+    .results{
+      margin-top:22px;
+      padding:24px;
+      outline:none;
+    }
+
+    .results-label{
+      margin:0 0 8px;
+      color:var(--primary);
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      font-size:.82rem;
+    }
+
+    .results-score{
+      display:flex;
+      align-items:flex-end;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-bottom:8px;
+    }
+
+    .results-score .big{
+      font-size:clamp(2rem, 5vw, 3rem);
+      font-weight:800;
+      line-height:1;
+      margin:0;
+    }
+
+    .results-score .percent{
+      font-size:1.15rem;
+      font-weight:700;
+      color:var(--accent);
+      margin:0 0 4px;
+    }
+
+    .results-text{
+      margin:0;
+      color:var(--muted);
+      line-height:1.6;
+    }
+
+    .sr-only{
+      position:absolute;
+      width:1px;
+      height:1px;
+      padding:0;
+      margin:-1px;
+      overflow:hidden;
+      clip:rect(0,0,0,0);
+      white-space:nowrap;
+      border:0;
+    }
+
+    @media (max-width: 640px){
+      .container{
+        width:min(100% - 18px, 1040px);
+        margin:18px auto 30px;
+      }
+      .hero,.status-card,.question-card,.results{
+        padding:18px;
+        border-radius:16px;
+      }
+      .question-text{font-size:1rem}
+      .option{padding:12px}
+      .actions{flex-direction:column}
+      .actions button{width:100%}
+    }
+  </style>
+</head>
+<body>
+  <!-- Put these separate audio clips in the same folder as this HTML:
+       Q1.mp3, Q2.mp3, Q3.mp3, Q4.mp3, Q5.mp3, Q6.mp3, Q7.mp3, Q8.mp3, Q9.mp3, Q10.mp3 -->
+
+  <div class="container">
+    <section class="hero">
+      <div class="eyebrow">Unit 7 Listening Task 4</div>
+      <h1>Ocean Conservation Lecture</h1>
+      <p>Answer all questions first. Audio clips stay locked during the task and unlock only after every question is completed. After submission, students can replay each clip and show or hide the matching transcript.</p>
+    </section>
+
+    <section class="status-card">
+      <div class="status-top">
+        <div class="progress-badge" aria-live="polite">
+          <span>Completed:</span>
+          <span id="answeredCount">0</span>
+          <span>/</span>
+          <span id="totalCount">10</span>
+        </div>
+      </div>
+      <p class="status-note" id="statusNote">Complete all questions to unlock the audio clips and the Submit button.</p>
+      <p class="warning-global" id="formWarning" hidden>Please complete all questions before submitting.</p>
+      <div class="actions">
+        <button class="primary-btn" id="submitBtn" type="button" disabled>Submit Answers</button>
+        <button class="secondary-btn" id="resetBtn" type="button" hidden>Try Again</button>
+      </div>
+    </section>
+
+    <form id="quizForm" novalidate>
+      <div class="quiz-grid" id="quiz"></div>
+    </form>
+
+    <section class="results" id="results" hidden tabindex="-1">
+      <p class="results-label">Results</p>
+      <div class="results-score">
+        <p class="big" id="scoreLine">0 / 10</p>
+        <p class="percent" id="percentLine">0%</p>
+      </div>
+      <p class="results-text" id="resultsText"></p>
+    </section>
+  </div>
+
+  <script>
+    const quizData = [
+      {
+        id: 1,
+        type: "multiple-choice",
+        audio: "Q1.mp3",
+        timeRange: { start: "00:00:03", end: "00:00:27" },
+        question: "The main idea of this lecture is about _______.",
+        options: [
+          { value: "a", text: "technology is the best way to solve ocean problems" },
+          { value: "b", text: "practical solutions and challenges of ocean conservation" },
+          { value: "c", text: "cleaning up lost fishing gear is our most urgent task" },
+          { value: "d", text: "restoring species like oysters is the key to ecosystem health" }
+        ],
+        answer: "b",
+        explanation: "The speaker introduces a clear plan for protecting oceans and says the lecture will examine useful solutions together with the real-world challenges of making them work.",
+        transcript:
+`Speaker 1: Today, let's build a clear and honest plan for protecting our oceans.
+Speaker 1: The problems are serious, but effective solutions exist.
+Speaker 1: Yet, for every promising idea, there are real-world challenges we need to understand.
+Speaker 1: We'll look at 5 key actions and the difficulties in making each one work everywhere in the world.`
+      },
+      {
+        id: 2,
+        type: "multiple-choice",
+        audio: "Q2.mp3",
+        timeRange: { start: "00:01:01", end: "00:01:36" },
+        question: "According to the lecture, the MSC certification model is challenging because _______.",
+        options: [
+          { value: "a", text: "its standards are not based on science" },
+          { value: "b", text: "it makes seafood less nutritious" },
+          { value: "c", text: "it can be unfair to smaller, local fishermen" },
+          { value: "d", text: "consumers do not recognise its label" }
+        ],
+        answer: "c",
+        explanation: "The lecture says the certification process is expensive and complex, which can keep smaller local fishermen, especially in poorer countries, out of the system.",
+        transcript:
+`Speaker 1: However, a big challenge is fairness and access.
+Speaker 1: The certification process is expensive, complex, and needs a lot of paperwork.
+Speaker 1: This can block small-scale local fishermen in poorer countries, even if they fish sustainably.
+Speaker 1: The risk is that the market helps only those who can pay for the certificate.
+Speaker 1: So, the real job is not just using the label, but also creating fairer ways for all fishermen to show they are sustainable.`
+      },
+      {
+        id: 3,
+        type: "multiple-choice",
+        audio: "Q3.mp3",
+        timeRange: { start: "00:01:47", end: "00:02:02" },
+        question: "The primary reason given for using circle hooks in fishing is that _______.",
+        options: [
+          { value: "a", text: "they help boats catch fish more quickly to shorten trips" },
+          { value: "b", text: "they are designed to dramatically reduce harm to non-target species" },
+          { value: "c", text: "they are a much cheaper alternative to traditional hooks" },
+          { value: "d", text: "they are a legal requirement for all fishing vessels worldwide" }
+        ],
+        answer: "b",
+        explanation: "The speaker says circle hooks can cut sea turtle deaths by up to 90%, showing that the goal is reducing accidental harm to animals that were not meant to be caught.",
+        transcript:
+`Speaker 1: Simple yet effective tools like the circle hook are a great example.
+Speaker 1: Studies show that using these hooks can cut sea turtle deaths by up to 90%.
+Speaker 1: It's a clear case of smart design reducing harm.`
+      },
+      {
+        id: 4,
+        type: "multiple-choice",
+        audio: "Q4.mp3",
+        timeRange: { start: "00:02:03", end: "00:02:32" },
+        question: "A major barrier to using bycatch-reduction technology widely is that _______.",
+        options: [
+          { value: "a", text: "the technology does not actually work as scientists claim" },
+          { value: "b", text: "fishermen universally dislike changing their traditional methods" },
+          { value: "c", text: "strong global cooperation and enforcement are required" },
+          { value: "d", text: "the necessary tools have not been invented yet" }
+        ],
+        answer: "c",
+        explanation: "The speaker explains that worldwide use needs international laws, reliable monitoring, and training, so broad cooperation and enforcement are the main barrier.",
+        transcript:
+`Speaker 1: The main challenge, however, is getting everyone to use it.
+Speaker 1: While big fishing companies might use these hooks, making sure every single boat in the world does is very hard.
+Speaker 1: It needs strong international laws, reliable monitoring at sea,
+Speaker 1: and training for all fishermen.
+Speaker 1: Without everyone working together, the positive effects of the technology stay limited to some places.`
+      },
+      {
+        id: 5,
+        type: "multiple-choice",
+        audio: "Q5.mp3",
+        timeRange: { start: "00:02:57", end: "00:03:30" },
+        question: "According to the lecture, _______ is more important compared to cleaning up lost fishing gear.",
+        options: [
+          { value: "a", text: "inventing new, more durable materials for fishing nets" },
+          { value: "b", text: "funding more research on the migratory patterns of marine life" },
+          { value: "c", text: "creating global systems to track gear and incentives to return it" },
+          { value: "d", text: "reducing the total number of fishing boats operating worldwide" }
+        ],
+        answer: "c",
+        explanation: "The lecturer says cleanup matters, but prevention matters more. The lecture specifically mentions tracking systems, better port facilities, and reasons for fishermen to bring old gear back.",
+        transcript:
+`Speaker 1: Yet the big challenge is about scale versus prevention.
+Speaker 1: Cleaning up is vital, but it's like always mopping a wet floor without fixing the leak.
+Speaker 1: The harder, more important task is to stop gear from being lost in the first place.
+Speaker 1: This needs better port facilities, reasons for fishermen to bring old gear back,
+Speaker 1: and global systems to track equipment.
+Speaker 1: Cleanup deals with the result, but we need bigger changes to stop the cause.`
+      },
+      {
+        id: 6,
+        type: "multiple-choice",
+        audio: "Q6.mp3",
+        timeRange: { start: "00:03:31", end: "00:03:55" },
+        question: "The example of oyster restoration demonstrates that _______.",
+        options: [
+          { value: "a", text: "healing one key species can help the whole area" },
+          { value: "b", text: "all restoration projects are guaranteed to succeed" },
+          { value: "c", text: "government funding may not be effective" },
+          { value: "d", text: "scientists should work with large animals" }
+        ],
+        answer: "a",
+        explanation: "The lecture explains that oyster reefs help rebuild whole coastal areas, showing how restoring one important species can benefit a much larger system.",
+        transcript:
+`Speaker 1: Beyond just stopping harm, we have the active work of restoring key species, like oysters.
+Speaker 1: An oyster is a natural water filter, cleaning dozens of gallons per day.
+Speaker 1: Ambitious projects now plant millions of young oysters to rebuild lost reefs, which helps whole coastal areas.`
+      },
+      {
+        id: 7,
+        type: "multiple-choice",
+        audio: "Q7.mp3",
+        timeRange: { start: "00:03:56", end: "00:04:24" },
+        question: "The lecture emphasises _______ as a requirement for true, long-term species restoration.",
+        options: [
+          { value: "a", text: "a one-time, large-scale release of animals into the wild" },
+          { value: "b", text: "fixing the environmental problems that caused the decline" },
+          { value: "c", text: "keeping restored populations in protected captivity for observation" },
+          { value: "d", text: "prioritising only the most popular species for public support" }
+        ],
+        answer: "b",
+        explanation: "The speaker says putting animals back is not enough. Pollution, disease, and habitat loss must also be fixed for restoration to last.",
+        transcript:
+`Speaker 1: The key challenge for restoration is making sure it lasts for the long term.
+Speaker 1: Just putting animals back is not enough.
+Speaker 1: If the original problems, like water pollution, disease, or lost habitat, are not fixed, the new populations might not survive.
+Speaker 1: True restoration is not a one-time job, but a long-term promise to improve the whole environment so these species can live well again.`
+      },
+      {
+        id: 8,
+        type: "multiple-choice",
+        audio: "Q8.mp3",
+        timeRange: { start: "00:04:25", end: "00:04:45" },
+        question: "_______ is given in the lecture as a clear example of powerful community action.",
+        options: [
+          { value: "a", text: "A multinational corporation releasing its annual sustainability report" },
+          { value: "b", text: "A single country signing an international environmental treaty" },
+          { value: "c", text: "Local volunteers removing tons of waste from a coastline in a day" },
+          { value: "d", text: "A team of scientists discovering a new species of deep-sea coral" }
+        ],
+        answer: "c",
+        explanation: "The lecture says thousands of volunteers can remove tons of waste in one day, presenting local group action as a strong example of community power.",
+        transcript:
+`Speaker 1: Finally, all these efforts depend on people, our choices, and community action.
+Speaker 1: Buying certified seafood or joining a beach cleanup are practical and powerful steps.
+Speaker 1: When thousands of volunteers work together, they can remove tons of waste in one day.`
+      },
+      {
+        id: 9,
+        type: "multiple-choice",
+        audio: "Q9.mp3",
+        timeRange: { start: "00:04:46", end: "00:05:07" },
+        question: "The primary reason the 'green gap' exists is that people ________.",
+        options: [
+          { value: "a", text: "face practical barriers like cost and habit" },
+          { value: "b", text: "do not believe in climate science" },
+          { value: "c", text: "cannot find sustainable products in stores" },
+          { value: "d", text: "think their personal actions are meaningless" }
+        ],
+        answer: "a",
+        explanation: "The lecturer defines the green gap as the difference between intention and action, then explains that price, unclear information, and old habits often block better choices.",
+        transcript:
+`Speaker 1: The common challenge here is the green gap.
+Speaker 1: This is the space between what people plan to do for the environment and what they actually do.
+Speaker 1: Things like higher prices, not enough clear information, or old habits can stop people from making environmentally friendly choices.`
+      },
+      {
+        id: 10,
+        type: "multiple-choice",
+        audio: "Q10.mp3",
+        timeRange: { start: "00:05:20", end: "00:06:00" },
+        question: "The lecturer's overall attitude toward solving ocean problems is ________.",
+        options: [
+          { value: "a", text: "critical" },
+          { value: "b", text: "uncertain" },
+          { value: "c", text: "optimistic" },
+          { value: "d", text: "realistic" }
+        ],
+        answer: "d",
+        explanation: "The conclusion stresses proven solutions, honest recognition of challenges, and steady practical work, so the tone is realistic rather than purely hopeful or negative.",
+        transcript:
+`Speaker 1: In conclusion, a realistic plan for our oceans must do two things: actively use proven solutions and honestly face their challenges.
+Speaker 1: From fairer fishing rules to worldwide use of better tools,
+Speaker 1: From preventing pollution to long-term restoration, our way forward is about linking strong ideas with practical, fair, and steady work.
+Speaker 1: By seeing this full picture, we can support solutions that are not only smart in theory, but also strong and fair enough to work in our complex world.`
+      }
+    ];
+
+    const quizContainer = document.getElementById("quiz");
+    const form = document.getElementById("quizForm");
+    const answeredCountEl = document.getElementById("answeredCount");
+    const totalCountEl = document.getElementById("totalCount");
+    const statusNote = document.getElementById("statusNote");
+    const submitBtn = document.getElementById("submitBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const formWarning = document.getElementById("formWarning");
+    const results = document.getElementById("results");
+    const scoreLine = document.getElementById("scoreLine");
+    const percentLine = document.getElementById("percentLine");
+    const resultsText = document.getElementById("resultsText");
+
+    let submitted = false;
+    let audioUnlocked = false;
+
+    totalCountEl.textContent = quizData.length;
+
+    function escapeHtml(text){
+      return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function getOptionText(question, value){
+      const found = question.options.find(opt => opt.value === value);
+      return found ? found.text : "";
+    }
+
+    function renderQuiz(){
+      quizContainer.innerHTML = quizData.map(question => {
+        const optionsHtml = question.options.map(option => `
+          <label class="option" data-value="${option.value}">
+            <input type="radio" name="q${question.id}" value="${option.value}">
+            <span class="option-letter">${option.value.toUpperCase()}.</span>
+            <span>${escapeHtml(option.text)}</span>
+          </label>
+        `).join("");
+
+        return `
+          <article class="question-card" id="card-${question.id}">
+            <div class="question-top">
+              <span class="question-number">Question ${question.id}</span>
+              <span class="type-tag">Multiple Choice</span>
+            </div>
+
+            <h2 class="question-text">${escapeHtml(question.question)}</h2>
+
+            <div class="audio-wrap">
+              <label class="audio-label" for="audio-${question.id}">Audio Clip</label>
+              <p class="audio-note">This clip is locked until all questions are complete.</p>
+
+              <div class="audio-lock" id="audio-lock-${question.id}">
+                🔒 Audio locked. Finish every question first, then this clip will unlock for answer checking.
+              </div>
+
+              <div class="audio-player" id="audio-player-${question.id}">
+                <audio id="audio-${question.id}" preload="none">
+                  <source src="${question.audio}" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                </audio>
+                <p class="audio-ready">Audio unlocked. Only one clip can play at a time.</p>
+                <p class="audio-error" id="audio-error-${question.id}" hidden>Audio file not found: ${question.audio}</p>
+              </div>
+            </div>
+
+            <fieldset aria-describedby="warning-${question.id} feedback-${question.id}">
+              <legend class="sr-only">Answer choices for question ${question.id}</legend>
+              ${optionsHtml}
+            </fieldset>
+
+            <p class="item-warning" id="warning-${question.id}" hidden>Please answer this question before submitting.</p>
+
+            <div class="feedback" id="feedback-${question.id}" hidden></div>
+
+            <div class="transcript-wrap">
+              <button
+                type="button"
+                class="transcript-toggle"
+                id="transcript-toggle-${question.id}"
+                data-id="${question.id}"
+                aria-expanded="false"
+                disabled
+              >
+                Transcript available after submission
+              </button>
+              <div class="transcript-panel" id="transcript-panel-${question.id}" hidden>
+                <p class="transcript-title">Transcript</p>
+                <p class="transcript-text">${escapeHtml(question.transcript)}</p>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      attachEventListeners();
+      updateProgress();
+    }
+
+    function attachEventListeners(){
+      document.querySelectorAll('input[type="radio"]').forEach(input => {
+        input.addEventListener("change", () => {
+          const qid = Number(input.name.replace("q", ""));
+          clearValidation(qid);
+          updateProgress();
+        });
+      });
+
+      document.querySelectorAll("audio").forEach(audio => {
+        audio.addEventListener("play", event => {
+          document.querySelectorAll("audio").forEach(other => {
+            if(other !== event.target){
+              other.pause();
+              other.currentTime = 0;
+            }
+          });
+        });
+
+        audio.addEventListener("error", () => {
+          const id = audio.id.replace("audio-", "");
+          const errorLine = document.getElementById(`audio-error-${id}`);
+          if(errorLine) errorLine.hidden = false;
+        });
+      });
+
+      document.querySelectorAll(".transcript-toggle").forEach(button => {
+        button.addEventListener("click", () => {
+          if(button.disabled) return;
+          const id = Number(button.dataset.id);
+          const panel = document.getElementById(`transcript-panel-${id}`);
+          const expanded = button.getAttribute("aria-expanded") === "true";
+          panel.hidden = expanded;
+          button.setAttribute("aria-expanded", String(!expanded));
+          button.textContent = expanded ? "Show Transcript" : "Hide Transcript";
+        });
+      });
+    }
+
+    function unlockAudioIfReady(completed){
+      if(audioUnlocked || completed !== quizData.length) return;
+
+      audioUnlocked = true;
+      quizData.forEach(question => {
+        const lock = document.getElementById(`audio-lock-${question.id}`);
+        const wrap = document.getElementById(`audio-player-${question.id}`);
+        const audio = document.getElementById(`audio-${question.id}`);
+        lock.classList.add("hidden");
+        wrap.classList.add("unlocked");
+        audio.setAttribute("controls", "controls");
+      });
+    }
+
+    function updateProgress(){
+      let completed = 0;
+      quizData.forEach(question => {
+        if(document.querySelector(`input[name="q${question.id}"]:checked`)){
+          completed += 1;
+        }
+      });
+
+      answeredCountEl.textContent = completed;
+      unlockAudioIfReady(completed);
+
+      if(submitted){
+        submitBtn.disabled = true;
+        statusNote.textContent = "Your answers have been submitted. Audio is available for replay and transcripts can now be opened.";
+        return;
+      }
+
+      if(completed === quizData.length){
+        statusNote.textContent = "All questions are complete. Audio is now unlocked and you can submit when ready.";
+        submitBtn.disabled = false;
+      }else{
+        statusNote.textContent = "Complete all questions to unlock the audio clips and the Submit button.";
+        submitBtn.disabled = true;
+      }
+    }
+
+    function clearValidation(questionId){
+      const card = document.getElementById(`card-${questionId}`);
+      const warning = document.getElementById(`warning-${questionId}`);
+      if(card) card.classList.remove("incomplete");
+      if(warning) warning.hidden = true;
+
+      const allComplete = quizData.every(q => !!document.querySelector(`input[name="q${q.id}"]:checked`));
+      if(allComplete) formWarning.hidden = true;
+    }
+
+    function showIncompleteState(firstIncompleteId){
+      formWarning.hidden = false;
+
+      quizData.forEach(question => {
+        const checked = document.querySelector(`input[name="q${question.id}"]:checked`);
+        const card = document.getElementById(`card-${question.id}`);
+        const warning = document.getElementById(`warning-${question.id}`);
+        if(!checked){
+          card.classList.add("incomplete");
+          warning.hidden = false;
+        }else{
+          card.classList.remove("incomplete");
+          warning.hidden = true;
+        }
+      });
+
+      const firstCard = document.getElementById(`card-${firstIncompleteId}`);
+      const firstInput = firstCard.querySelector('input[type="radio"]');
+      firstCard.scrollIntoView({behavior:"smooth", block:"center"});
+      firstInput.focus();
+    }
+
+    function revealQuestionFeedback(question, selectedValue){
+      const isCorrect = selectedValue === question.answer;
+      const card = document.getElementById(`card-${question.id}`);
+      const feedback = document.getElementById(`feedback-${question.id}`);
+
+      card.classList.remove("incomplete");
+      card.classList.add(isCorrect ? "correct" : "incorrect");
+
+      card.querySelectorAll(`input[name="q${question.id}"]`).forEach(input => {
+        input.disabled = true;
+      });
+
+      card.querySelectorAll(".option").forEach(label => {
+        const value = label.dataset.value;
+        if(value === question.answer) label.classList.add("correct-option");
+        if(value === selectedValue && value !== question.answer) label.classList.add("incorrect-option");
+      });
+
+      if(isCorrect){
+        feedback.className = "feedback correct";
+        feedback.innerHTML = `<strong>Correct.</strong><br>${escapeHtml(question.explanation)}`;
+      }else{
+        feedback.className = "feedback incorrect";
+        feedback.innerHTML = `
+          <strong>Incorrect.</strong><br>
+          Your answer: ${selectedValue.toUpperCase()}. ${escapeHtml(getOptionText(question, selectedValue))}<br>
+          Correct answer: ${question.answer.toUpperCase()}. ${escapeHtml(getOptionText(question, question.answer))}<br>
+          ${escapeHtml(question.explanation)}
+        `;
+      }
+
+      feedback.hidden = false;
+
+      const transcriptButton = document.getElementById(`transcript-toggle-${question.id}`);
+      transcriptButton.disabled = false;
+      transcriptButton.textContent = "Show Transcript";
+    }
+
+    function submitQuiz(){
+      if(submitted) return;
+
+      const firstIncomplete = quizData.find(question => {
+        return !document.querySelector(`input[name="q${question.id}"]:checked`);
+      });
+
+      if(firstIncomplete){
+        showIncompleteState(firstIncomplete.id);
+        return;
+      }
+
+      formWarning.hidden = true;
+      submitted = true;
+
+      let score = 0;
+
+      quizData.forEach(question => {
+        const selected = document.querySelector(`input[name="q${question.id}"]:checked`).value;
+        if(selected === question.answer) score += 1;
+        revealQuestionFeedback(question, selected);
+      });
+
+      const percent = Math.round((score / quizData.length) * 100);
+      scoreLine.textContent = `${score} / ${quizData.length}`;
+      percentLine.textContent = `${percent}%`;
+      resultsText.textContent = `You answered ${score} out of ${quizData.length} questions correctly. Audio is available for replay, and each question transcript can now be opened.`;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Submitted";
+      resetBtn.hidden = false;
+
+      updateProgress();
+      results.hidden = false;
+      results.focus();
+      results.scrollIntoView({ behavior:"smooth", block:"start" });
+    }
+
+    submitBtn.addEventListener("click", submitQuiz);
+
+    form.addEventListener("submit", event => {
+      event.preventDefault();
+      submitQuiz();
+    });
+
+    resetBtn.addEventListener("click", () => {
+      window.location.reload();
+    });
+
+    renderQuiz();
+  </script>
+</body>
+</html>
